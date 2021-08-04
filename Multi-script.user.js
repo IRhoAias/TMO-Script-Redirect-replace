@@ -49,4 +49,11 @@ if (currentURL.match("gamesnk.com/news")) {
 };
 
 
+// ### otakuworldgames.com/news...
+
+if (currentURL.match("otakuworldgames.com/news")) {
+	location.href = location.href.replace("otakuworldgames.com/news", "lectortmo.com/viewer");
+};
+
+
 // end of script
