@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Multi-script Para TMO
 // @namespace Mother Of Mangas 2021
-// @version 0.1
+// @version 0.5
 // @description Quiero Ver Mi MANGA!!!!
 // @author RhoAias
 // @include *
