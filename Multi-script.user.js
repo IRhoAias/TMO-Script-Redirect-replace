@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Multi-script Para TMO
 // @namespace Mother Of Mangas 2021
-// @version 0.5
+// @version 0.7
 // @description Quiero Ver Mi MANGA!!!!
 // @author RhoAias
 // @include *
@@ -53,6 +53,13 @@ if (currentURL.match("gamesnk.com/news")) {
 
 if (currentURL.match("otakuworldgames.com/news")) {
 	location.href = location.href.replace("otakuworldgames.com/news", "lectortmo.com/viewer");
+};
+
+
+// ### enginepassion.com/news...
+
+if (currentURL.match("enginepassion.com/news")) {
+	location.href = location.href.replace("enginepassion.com/news", "lectortmo.com/viewer");
 };
 
 
