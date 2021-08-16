@@ -63,4 +63,12 @@ if (currentURL.match("enginepassion.com/news")) {
 };
 
 
+// ### mangalong.com/news...
+
+if (currentURL.match("mangalong.com/news")) {
+	location.href = location.href.replace("mangalong.com/news", "lectortmo.com/viewer");
+};
+
+
+
 // end of script
