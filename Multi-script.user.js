@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name Multi-script Para TMO
-// @namespace Mother Of Mangas 2021
-// @version 0.7
+// @namespace Mother Of Mangas
+// @version 0.9
 // @description Quiero Ver Mi MANGA!!!!
 // @author RhoAias
 // @include *
 // @grant none
 // ==/UserScript==
 
-if (window.top !== window.self)	   // Don’t run in frames.
+if (window.top !== window.self)	   // No Corre en 2do plano
 	return;
 
 var currentURL = location.href;
