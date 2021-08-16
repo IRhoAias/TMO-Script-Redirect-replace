@@ -1,13 +1,16 @@
 // ==UserScript==
 // @name Multi-script Para TMO
 // @namespace Mother Of Mangas
-// @version 1.2
+// @version 1.3
 // @description Quiero Ver Mi MANGA!!!!
 // @author RhoAias
-// @updateURL      https://github.com/IRhoAias/TMO-Script-Redirect-replace/edit/main/Multi-script.user.js
-// @downloadURL    hhttps://github.com/IRhoAias/TMO-Script-Redirect-replace/edit/main/Multi-script.user.js
-// @include *
-// @grant none
+// @updateURL      https://github.com/IRhoAias/TMO-Script-Redirect-replace/blob/main/Multi-script.user.js
+// @downloadURL    hhttps://github.com/IRhoAias/TMO-Script-Redirect-replace/blob/main/Multi-script.user.js
+// @include        *
+// @connect        *
+// @grant          GM.getResourceUrl
+// @grant          GM_xmlhttpRequest
+// @grant          GM_getResourceURL
 // ==/UserScript==
 
 if (window.top !== window.self)	   // No Corre en 2do plano
