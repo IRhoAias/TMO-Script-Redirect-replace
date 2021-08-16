@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name Multi-script Para TMO
 // @namespace Mother Of Mangas
-// @version 0.9
+// @version 1.2
 // @description Quiero Ver Mi MANGA!!!!
 // @author RhoAias
+// @updateURL      https://github.com/IRhoAias/TMO-Script-Redirect-replace/edit/main/Multi-script.user.js
+// @downloadURL    hhttps://github.com/IRhoAias/TMO-Script-Redirect-replace/edit/main/Multi-script.user.js
 // @include *
 // @grant none
 // ==/UserScript==
