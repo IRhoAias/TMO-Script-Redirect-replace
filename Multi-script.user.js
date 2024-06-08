@@ -1,79 +1,116 @@
 // ==UserScript==
 // @name Multi-script Para TMO
 // @namespace Mother Of Mangas
-// @version 1.3
+// @version 3.06
 // @description Quiero Ver Mi MANGA!!!!
-// @author RhoAias
-// @updateURL      https://github.com/IRhoAias/TMO-Script-Redirect-replace/blob/main/Multi-script.user.js
-// @downloadURL    hhttps://github.com/IRhoAias/TMO-Script-Redirect-replace/blob/main/Multi-script.user.js
-// @include        *
+// @homepageURL      https://greasyfork.org/es/scripts/430361-multi-script-para-tmo
+// @icon         https://visortmo.com/favicon/android-chrome-192x192.png
+// @author IRhoAias
 // @connect        *
 // @grant          GM.getResourceUrl
 // @grant          GM_xmlhttpRequest
 // @grant          GM_getResourceURL
+// @license Copyright IRhoAias
+// @match *://*lectortmo.com/*
+// @match *://*visortmo.com/*
+// @exclude *://*visortmo.com/view_uploads/*
+
+// @match *://*/*
+
+// @downloadURL https://update.greasyfork.org/scripts/430361/Multi-script%20Para%20TMO.user.js
+// @updateURL https://update.greasyfork.org/scripts/430361/Multi-script%20Para%20TMO.meta.js
 // ==/UserScript==
 
-if (window.top !== window.self)	   // No Corre en 2do plano
-	return;
+//PAGE
 
-var currentURL = location.href;
+(function() {
+    'use strict';
+
+    var Regex12 = /\/[0-9a-zA-Z]{12}\//
+    var Regex32 = /\/[0-9a-zA-Z]{13,32}\//
+    var News = /\/news\//;
+    var Juegos = /\/juegos\//;
+
+    function extractUrl() {
+        return window.location.href;
+    }
+    function extractPathname() {
+        return window.location.pathname;
+    }
+    function isTMO() {
+        const url = extractUrl();
+        return url.includes('visortmo.com');
+    }
+    function TMOUploads() {
+        const url = extractUrl();
+        return url.includes('visortmo.com/view_uploads');
+    }
+
+    function CallBack() {
+        const pathname = extractPathname();
+        if (Regex12.test(pathname) && (News.test(pathname)) && !isTMO() && !TMOUploads()) {
+            window.history.back();
+            setTimeout(function() {
+                console.log('Backeo Completo.');
+            }, 500);
+        }
+    }
+
+    function redirectTMO() {
+        const pathname = extractPathname();
+        if (Regex32.test(pathname) && (News.test(pathname)) && !isTMO()) {
+            location.href = location.href.replace(`${location.host}/news/${location.pathname.split("/")[2]}/cascade`, `visortmo.com/viewer/${location.pathname.split("/")[2]}/cascade`);
+            setTimeout(function() {
+                console.log('Redireccion Completada.');
+            }, 500);
+        }
+    }
+
+    function GamePath() {
+        const pathname = extractPathname();
+        if (Regex32.test(pathname) && (Juegos.test(pathname)) && !isTMO()) {
+            location.href = location.href.replace("juegostmo.com/juegos/", "visortmo.com/viewer/");
+            setTimeout(function() {
+                console.log('Redireccion Completada.');
+            }, 500);
+        }
+    }
+    function CascadeR() {
+    if ((location.href).includes("cascade1")) {
+    location.href = location.href.replace(
+        /cascade1*/, "cascade"
+      );
+  }
+}
+    function executeFunctions() {
+        redirectTMO();
+        setTimeout(CascadeR, 500);
+        setTimeout(GamePath, 500);
+        setTimeout(CallBack, 1500);
+    }
+
+//    executeFunctions();
+	redirectTMO();
+	GamePath();
+	CascadeR();
+	CallBack();
+})();
+
+//✙[̲̅S][̲̅c][̲̅r][̲̅i][̲̅p][̲̅t]✙
+//▢▇▇▇▇▇▇▇▇▇▇▇▇▇▇▢
+//        　   　╭━╮╭━╮   ╭╮ ╱
+//      　     　╰━┫╰━┫   ╰╯╱╭╮
+//          　 　╰━╯╰━╯　  ╱ ╰╯
+//　　　         COMPLETE
 
 
-// ### cook2love.com/news...
 
-if (currentURL.match("cook2love.com/news")) {
-	location.href = location.href.replace("cook2love.com/news", "lectortmo.com/viewer");
-};
-
-
-// ### wtechnews.com/news...
-
-if (currentURL.match("wtechnews.com/news")) {
-	location.href = location.href.replace("wtechnews.com/news", "lectortmo.com/viewer");
-};
-
-
-// ### animationforyou.com/news...
-
-if (currentURL.match("animationforyou.com/news")) {
-	location.href = location.href.replace("animationforyou.com/news", "lectortmo.com/viewer");
-};
-
-
-// ### animalcanine.com/news...
-
-if (currentURL.match("animalcanine.com/news")) {
-	location.href = location.href.replace("animalcanine.com/news", "lectortmo.com/viewer");
-};
-
-
-// ### gamesnk.com/news...
-
-if (currentURL.match("gamesnk.com/news")) {
-	location.href = location.href.replace("gamesnk.com/news", "lectortmo.com/viewer");
-};
-
-
-// ### otakuworldgames.com/news...
-
-if (currentURL.match("otakuworldgames.com/news")) {
-	location.href = location.href.replace("otakuworldgames.com/news", "lectortmo.com/viewer");
-};
-
-
-// ### enginepassion.com/news...
-
-if (currentURL.match("enginepassion.com/news")) {
-	location.href = location.href.replace("enginepassion.com/news", "lectortmo.com/viewer");
-};
-
-
-// ### mangalong.com/news...
-
-if (currentURL.match("mangalong.com/news")) {
-	location.href = location.href.replace("mangalong.com/news", "lectortmo.com/viewer");
-};
-
-
-
-// end of script
+  document.addEventListener('keydown', logKey);
+  function logKey(e) {
+    if(e.code == "ArrowRight"){
+        location = document.querySelector(".chapter-next").querySelector("a").href;
+    }
+    if(e.code == "ArrowLeft"){
+        location = document.querySelector(".chapter-prev").querySelector("a").href;
+    }
+  }
