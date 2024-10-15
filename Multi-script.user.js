@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name Multi-script Para TMO
 // @namespace Mother Of Mangas
-// @version 3.06
+// @version 3.11
 // @description Quiero Ver Mi MANGA!!!!
 // @homepageURL      https://greasyfork.org/es/scripts/430361-multi-script-para-tmo
-// @icon         https://visortmo.com/favicon/android-chrome-192x192.png
+// @icon         https://zonatmo.com/favicon/android-chrome-192x192.png
 // @author IRhoAias
 // @connect        *
 // @grant          GM.getResourceUrl
@@ -13,7 +13,10 @@
 // @license Copyright IRhoAias
 // @match *://*lectortmo.com/*
 // @match *://*visortmo.com/*
+// @match *://*zonatmo.com/*
+// @exclude *://*lectortmo.com/view_uploads/*
 // @exclude *://*visortmo.com/view_uploads/*
+// @exclude *://*zonatmo.com/view_uploads/*
 
 // @match *://*/*
 
@@ -39,11 +42,11 @@
     }
     function isTMO() {
         const url = extractUrl();
-        return url.includes('visortmo.com');
+        return url.includes('zonatmo.com');
     }
     function TMOUploads() {
         const url = extractUrl();
-        return url.includes('visortmo.com/view_uploads');
+        return url.includes('zonatmo.com/view_uploads');
     }
 
     function CallBack() {
@@ -59,7 +62,7 @@
     function redirectTMO() {
         const pathname = extractPathname();
         if (Regex32.test(pathname) && (News.test(pathname)) && !isTMO()) {
-            location.href = location.href.replace(`${location.host}/news/${location.pathname.split("/")[2]}/cascade`, `visortmo.com/viewer/${location.pathname.split("/")[2]}/cascade`);
+            location.href = location.href.replace(`${location.host}/news/${location.pathname.split("/")[2]}/cascade`, `zonatmo.com/viewer/${location.pathname.split("/")[2]}/cascade`);
             setTimeout(function() {
                 console.log('Redireccion Completada.');
             }, 500);
@@ -69,7 +72,7 @@
     function GamePath() {
         const pathname = extractPathname();
         if (Regex32.test(pathname) && (Juegos.test(pathname)) && !isTMO()) {
-            location.href = location.href.replace("juegostmo.com/juegos/", "visortmo.com/viewer/");
+            location.href = location.href.replace("juegostmo.com/juegos/", "zonatmo.com/viewer/");
             setTimeout(function() {
                 console.log('Redireccion Completada.');
             }, 500);
