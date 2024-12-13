@@ -83,7 +83,7 @@
         }
     }
 
-const CURRENT_VERSION = "3.11";
+const CURRENT_VERSION = "3.12";
     const VERSION_URL = "https://raw.githubusercontent.com/IRhoAias/TMO-Script-Redirect-replace/refs/heads/main/version.json";
 
     function checkScriptVersion() {
@@ -128,7 +128,10 @@ const CURRENT_VERSION = "3.11";
     CallBack();
     GamePath();
     redirectTMO();
-    checkScriptVersion();
+
+    if (isTMO()) {
+        checkScriptVersion();
+    }
 
 })();
 
