@@ -29,8 +29,8 @@
 (function() {
     'use strict';
 
-    var Regex12 = /\/[0-9a-zA-Z]{12}\//
-    var Regex32 = /\/[0-9a-zA-Z]{13,32}\//
+    var Regex12 = /\/[0-9a-zA-Z]{12}\//;
+    var Regex32 = /\/[0-9a-zA-Z]{13,32}\//;
     var News = /\/news\//;
     var Juegos = /\/juegos\//;
 
@@ -50,53 +50,86 @@
     }
 
     function CallBack() {
+    const pathname = extractPathname();
+    const matchesRegex12 = Regex12.test(pathname);
+    const isNewsPath = News.test(pathname);
+    const isNotTMO = !isTMO();
+    const isNotUploads = !TMOUploads();
+
+    if (matchesRegex12 && isNewsPath && isNotTMO && isNotUploads) {
+        window.history.back();
+    }
+}
+
+
+    function GamePath() {
         const pathname = extractPathname();
-        if (Regex12.test(pathname) && (News.test(pathname)) && !isTMO() && !TMOUploads()) {
-            window.history.back();
-            setTimeout(function() {
-                console.log('Backeo Completo.');
-            }, 500);
+        if (Regex32.test(pathname) && Juegos.test(pathname) && !isTMO()) {
+            location.href = location.href.replace(
+                "juegostmo.com/juegos/",
+                "zonatmo.com/viewer/"
+            );
         }
     }
 
     function redirectTMO() {
+        const url = extractUrl();
         const pathname = extractPathname();
-        if (Regex32.test(pathname) && (News.test(pathname)) && !isTMO()) {
-            location.href = location.href.replace(`${location.host}/news/${location.pathname.split("/")[2]}/cascade`, `zonatmo.com/viewer/${location.pathname.split("/")[2]}/cascade`);
-            setTimeout(function() {
-                console.log('Redireccion Completada.');
-            }, 500);
+        if (Regex32.test(pathname) && News.test(pathname) && !isTMO()) {
+            location.href = location.href.replace(
+                /\/news\/([^\/]+)\/cascade[0-9]*/,
+                `/viewer/$1/cascade`
+            ).replace(location.host, "zonatmo.com");
         }
     }
 
-    function GamePath() {
-        const pathname = extractPathname();
-        if (Regex32.test(pathname) && (Juegos.test(pathname)) && !isTMO()) {
-            location.href = location.href.replace("juegostmo.com/juegos/", "zonatmo.com/viewer/");
-            setTimeout(function() {
-                console.log('Redireccion Completada.');
-            }, 500);
-        }
-    }
-    function CascadeR() {
-    if ((location.href).includes("cascade1")) {
-    location.href = location.href.replace(
-        /cascade1*/, "cascade"
-      );
-  }
-}
-    function executeFunctions() {
-        redirectTMO();
-        setTimeout(CascadeR, 500);
-        setTimeout(GamePath, 500);
-        setTimeout(CallBack, 1500);
+const CURRENT_VERSION = "3.11";
+    const VERSION_URL = "https://raw.githubusercontent.com/IRhoAias/TMO-Script-Redirect-replace/refs/heads/main/version.json";
+
+    function checkScriptVersion() {
+        fetch(VERSION_URL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error al obtener la versión del script.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                const latestVersion = data.version;
+                if (isOutdated(CURRENT_VERSION, latestVersion)) {
+                    notifyUpdate(latestVersion);
+                } else {
+                    console.log("El script está actualizado.");
+                }
+            })
+            .catch(error => {
+                console.error("No se pudo verificar la versión del script:", error);
+            });
     }
 
-//    executeFunctions();
-	redirectTMO();
-	GamePath();
-	CascadeR();
-	CallBack();
+    function isOutdated(current, latest) {
+        const currentParts = current.split('.').map(Number);
+        const latestParts = latest.split('.').map(Number);
+
+        for (let i = 0; i < Math.max(currentParts.length, latestParts.length); i++) {
+            const currentPart = currentParts[i] || 0;
+            const latestPart = latestParts[i] || 0;
+            if (currentPart < latestPart) return true;
+            if (currentPart > latestPart) return false;
+        }
+        return false;
+    }
+
+    // Notificar de actualización
+    function notifyUpdate(latestVersion) {
+        alert(`¡Una nueva versión "Multi-script Para TMO" está disponible!\n\nVersión actual: ${CURRENT_VERSION}\nÚltima versión: ${latestVersion}\n\nPor favor, actualiza el script.`);
+    }
+
+    CallBack();
+    GamePath();
+    redirectTMO();
+    checkScriptVersion();
+
 })();
 
 //✙[̲̅S][̲̅c][̲̅r][̲̅i][̲̅p][̲̅t]✙
