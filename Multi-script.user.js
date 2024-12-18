@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name Multi-script Para TMO
 // @namespace Mother Of Mangas
-// @version 3.11
+// @version 3.13
 // @description Quiero Ver Mi MANGA!!!!
 // @homepageURL      https://greasyfork.org/es/scripts/430361-multi-script-para-tmo
 // @icon         https://zonatmo.com/favicon/android-chrome-192x192.png
@@ -20,8 +20,6 @@
 
 // @match *://*/*
 
-// @downloadURL https://update.greasyfork.org/scripts/430361/Multi-script%20Para%20TMO.user.js
-// @updateURL https://update.greasyfork.org/scripts/430361/Multi-script%20Para%20TMO.meta.js
 // ==/UserScript==
 
 //PAGE
@@ -83,7 +81,7 @@
         }
     }
 
-const CURRENT_VERSION = "3.12";
+const CURRENT_VERSION = "3.13";
     const VERSION_URL = "https://raw.githubusercontent.com/IRhoAias/TMO-Script-Redirect-replace/refs/heads/main/version.json";
 
     function checkScriptVersion() {
@@ -145,11 +143,17 @@ const CURRENT_VERSION = "3.12";
 
 
   document.addEventListener('keydown', logKey);
-  function logKey(e) {
-    if(e.code == "ArrowRight"){
-        location = document.querySelector(".chapter-next").querySelector("a").href;
+function logKey(e) {
+    if (e.code === "ArrowRight") {
+        const nextChapter = document.querySelector(".chapter-next a");
+        if (nextChapter && nextChapter.href) {
+            location.href = nextChapter.href;
+        }
     }
-    if(e.code == "ArrowLeft"){
-        location = document.querySelector(".chapter-prev").querySelector("a").href;
+    if (e.code === "ArrowLeft") {
+        const prevChapter = document.querySelector(".chapter-prev a");
+        if (prevChapter && prevChapter.href) {
+            location.href = prevChapter.href;
+        }
     }
-  }
+}
